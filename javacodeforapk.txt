@@ -1,0 +1,76 @@
+package com.example.gst;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+
+public class MainActivity extends AppCompatActivity {
+    Button button,button2,button3,button4;
+    TextView rate , rrate, gamt;
+    EditText inrate, inweight,inrrate,ingamt;
+
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        button = findViewById(R.id.button);
+        button2 = findViewById(R.id.button2);
+        button3 = findViewById(R.id.button3);
+        inrate = findViewById(R.id.editTextText);
+        inweight = findViewById(R.id.editTextText2);
+        inrrate = findViewById(R.id.editTextText3);
+        ingamt = findViewById(R.id.editTextText5);
+        rate = findViewById(R.id.textView9);
+        rrate = findViewById(R.id.textView10);
+        button4 = findViewById(R.id.refresh);
+        //gamt = findViewById(R.id.textView11);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                double gst = (Double.parseDouble(inrate.getText().toString())*3)/100;
+                double rt =  Double.parseDouble(inrate.getText().toString())/(Double.parseDouble(inweight.getText().toString())*103);
+                rate.setText("Rate: "+rt);
+            }
+        });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                double rounded =(Double.parseDouble(inrrate.getText().toString())* Double.parseDouble(inweight.getText().toString()));
+                rrate.setText("Gross Amount: "+rounded);
+            }
+        });
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                double gst = ((Double.parseDouble(ingamt.getText().toString())*1.5)/100);
+                double tamt =(Double.parseDouble(ingamt.getText().toString())+(2*gst));
+                button3.setText("GST:"+gst+"\n Total amount"+tamt);
+                Toast.makeText(MainActivity.this, "Thanks for using this app", Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
+
+
+
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+
+            public void onClick(View v) {
+                refresher(inrate,rate,button3);
+                refresher(ingamt,rrate,button3);
+                refresher(inrrate,rate,button3);
+                refresher(inweight,rrate,button3);
+
+            }
+
+        });
